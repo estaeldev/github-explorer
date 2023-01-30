@@ -1,16 +1,27 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { FormEvent, useState } from 'react';
 import {GoOctoface} from 'react-icons/go'
 import styles from 'styles/home.module.scss'
+import github from 'service/github';
 
-const HomePage: NextPage = () => {
 
-    const [username, setUsername] = useState<string>()
+interface HomePageProps {
+    name: string
+}
+
+const HomePage: NextPage<HomePageProps> = ({name}) => {
+    
+    const [username, setUsername] = useState<string>('')
+
+    const loadData = async () => {
+        const response = await github.get(`users/${username}`)
+        console.log(response.data);
+        
+    }
 
     const onSubmit = (event: FormEvent): void => {
         event.preventDefault()
-        console.log(username);
-        
+        loadData();
     }
 
     return (
@@ -19,6 +30,7 @@ const HomePage: NextPage = () => {
             <form onSubmit={onSubmit}>
                 <input 
                     className={styles.input}
+                    value={name}
                     type="text" 
                     placeholder="Digite o nome do usuário" 
                     onChange={event => setUsername(event.target.value)}
@@ -28,5 +40,16 @@ const HomePage: NextPage = () => {
     )
 }
 
+export const getServerSideProps: GetServerSideProps = async () => {    
+    const {data} = await github.get(`users/estaeldev`)
+    const name = data.login
+        
+    
+    return {
+        props: {
+            name: name
+        }
+    }
+}
 
 export default HomePage
