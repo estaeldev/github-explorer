@@ -4,48 +4,38 @@ import Link from 'next/link';
 import { GoLinkExternal, GoLocation, GoOrganization, GoPerson, GoRepo } from 'react-icons/go';
 import github from 'service/github';
 import styles from './styles.module.scss'
+import {User} from 'types/user'
 
-interface UserPageProps {
-    name: string
-    login: string
-    avatar_url: string
-    bio: string
-    location: string
-    public_repos: string
-    followers: string
-    following: string
-    html_url: string
-}
-
-const UserPage: NextPage<UserPageProps> = (user) => {
+const UserPage: NextPage<User> = (user) => {
 
     return (
         <div className={styles.container}>
+
             <div className={styles.card}>
 
                 <div className={styles.card__content}>
                     <div className={styles.user__avatar}>
                         <Image src={user.avatar_url} width={30} height={30} alt='Imagem de avatar do usuário.'/>
                     </div>
-                    <h1>{user.login}</h1>
+                    <h1>{user.name || user.login}</h1>
                     <h2>{user.bio}</h2>
                     <p>
-                        <GoLocation />
+                        <GoLocation size={20}/>
                         {user.location || 'Via Lacte'}
                     </p>
                 </div>
 
                 <footer className={styles.card__footer}>
                     <ul>
-                        <li>
+                        <li title='Número de repositórios.'>
                             <GoRepo />
                             {user.public_repos}
                         </li>
-                        <li>
+                        <li title='Número de seguidores.'>
                             <GoOrganization />
                             {user.followers}
                         </li>
-                        <li>
+                        <li title='Número de usuários seguidos.'>
                             <GoPerson />
                             {user.following}
                         </li>
@@ -66,6 +56,7 @@ const UserPage: NextPage<UserPageProps> = (user) => {
                 </div>
 
             </div>
+
         </div>
     )
 }
@@ -76,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
     const username = params?.username
 
     if(username) {
-        const {data} = await github.get(`users/${username}`)
+        const {data} = await github.get<User>(`users/${username}`)
 
         return {
             props: data

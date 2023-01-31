@@ -1,0 +1,133 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100vh;
+
+}
+
+.card {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    background: var(--background-light);
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2), 0 15px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.card__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 12px;
+    padding: 40px 64px;
+
+    h1, h2, p {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    h2, p {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    h2 {
+        font-weight: 500;
+    }
+
+    p {
+        display: flex;
+        column-gap: 6px;
+        color: var(--text-dark);
+    }
+
+}
+
+.user_avatar {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.card__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    row-gap: 12px;
+    padding: 32px 32px;
+    margin-bottom: 25px;
+    background: var(--background-dark);
+
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        list-style: none;
+
+        li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 5px;
+            opacity: 0.8;
+            font-size: 20px;
+            font-weight: 500;
+
+            svg {
+                width: 28px;
+                height: auto;
+                color: #FFEA00;
+            }
+
+        }
+
+    }
+
+}
+
+.card__links {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+    padding: 20px;
+
+    a {
+        width: 100%;
+        height: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 4px;
+
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--link);
+        border-radius: 6px;
+        border: 1px solid var(--link);
+        text-decoration: none;
+        transition: 0.4s;
+
+        &:hover {
+            color: var(--text);
+            background: var(--link);
+        }
+
+    }
+
+}
+
+
