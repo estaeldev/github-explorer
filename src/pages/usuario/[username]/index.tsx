@@ -64,7 +64,7 @@ const UserPage: NextPage<User> = (user) => {
 
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
-    const username = params?.username
+    const username = params?.username    
 
     if(username) {
         const {data} = await github.get<User>(`users/${username}`)

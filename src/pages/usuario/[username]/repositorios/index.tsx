@@ -47,9 +47,9 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
     const username = params?.username
     
     if(username) {
-        const {data} = await github.get(`users/${username}/repos`)
+        const {data} = await github.get<Repo[]>(`users/${username}/repos`)
         return {
-            props: {repos: data}
+            props: {repos: data.sort((repoA, repoB) => repoA.stargazers_count < repoB.stargazers_count ? 1 : -1)}
         } 
     }
 
