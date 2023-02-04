@@ -1,7 +1,10 @@
-export interface User {
-    name: string
+export interface UserLocal {
     login: string
+    name: string
     avatar_url: string
+}
+
+export interface User extends UserLocal{
     bio: string
     location: string
     public_repos: string
@@ -9,3 +12,5 @@ export interface User {
     following: string
     html_url: string
 }
+
+

@@ -1,4 +1,6 @@
+import LayoutPane from "components/layout";
 import { GetServerSideProps, NextPage } from "next"
+import { getSession } from "next-auth/react";
 import { GoCalendar, GoLinkExternal, GoStar } from "react-icons/go";
 import github from "service/github";
 import { Repo } from "types/repo";
@@ -11,7 +13,7 @@ interface RepositoriosPageProps {
 export default function RepositoriesPage({repos}: RepositoriosPageProps) {    
 
     return (
-        <div className={styles.container}>
+        <LayoutPane>
 
             <ul className={styles.repos}>
                 {repos.map(repo => (
@@ -39,11 +41,22 @@ export default function RepositoriesPage({repos}: RepositoriosPageProps) {
                 ))}
             </ul>
             
-        </div>
+        </LayoutPane>
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
+export const getServerSideProps: GetServerSideProps = async ({req, params}) => {
+    const session = await getSession({req})
+    
+    if(!session) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    }
+
     const username = params?.username
     
     if(username) {
