@@ -3,7 +3,6 @@
 # dependencies
 /node_modules
 /.pnp
-/.vscode/
 .pnp.js
 
 # testing
@@ -28,6 +27,10 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.github
+
+# vscode
+/.vscode/
 
 # vercel
 .vercel
