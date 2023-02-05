@@ -2,7 +2,7 @@
     Github-Explorer
 </h1>
 
-<img src='./.github/preview.png'>
+<img src='./.github/preview.png' />
 
 ## Projeto
 
